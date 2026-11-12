@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.owner;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -64,6 +65,17 @@ public class Pet extends NamedEntity {
 
 	public LocalDate getBirthDate() {
 		return this.birthDate;
+	}
+
+	/**
+	 * The time between the birth date and {@code today}, or {@code null} if the birth
+	 * date is unknown or after {@code today}.
+	 */
+	public Period ageOn(LocalDate today) {
+		if (this.birthDate == null || this.birthDate.isAfter(today)) {
+			return null;
+		}
+		return Period.between(this.birthDate, today);
 	}
 
 	public PetType getType() {

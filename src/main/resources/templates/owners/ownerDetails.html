@@ -52,6 +52,11 @@
           <dd th:text="${pet.name}"></dd>
           <dt th:text="#{birthDate}">Birth Date</dt>
           <dd th:text="${#temporals.format(pet.birthDate, 'yyyy-MM-dd')}"></dd>
+          <dt th:text="#{age}">Age</dt>
+          <dd th:with="age=${pet.ageOn(#temporals.createToday())}">
+            <span th:if="${age != null}"
+              th:text="${age.years >= 1} ? (${age.years == 1} ? #{ageYear(${age.years})} : #{ageYears(${age.years})}) : (${age.months >= 1} ? (${age.months == 1} ? #{ageMonth(${age.months})} : #{ageMonths(${age.months})}) : #{ageUnderMonth})"></span>
+          </dd>
           <dt th:text="#{type}">Type</dt>
           <dd th:text="${pet.type}"></dd>
         </dl>
