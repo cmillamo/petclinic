@@ -57,6 +57,13 @@ public class PetClinicIntegrationTests {
 	}
 
 	@Test
+	void ownerDetailsShowsTheAgeAfterTheBirthDate() {
+		RestTemplate template = builder.baseUri("http://localhost:" + port).build();
+		String page = template.getForObject("/owners/1", String.class);
+		assertThat(page).contains("Age");
+	}
+
+	@Test
 	void ownerList() {
 		RestTemplate template = builder.baseUri("http://localhost:" + port).build();
 		ResponseEntity<String> result = template.exchange(RequestEntity.get("/owners?lastName=").build(), String.class);

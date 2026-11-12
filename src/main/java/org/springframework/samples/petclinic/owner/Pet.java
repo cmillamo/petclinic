@@ -66,6 +66,13 @@ public class Pet extends NamedEntity {
 		return this.birthDate;
 	}
 
+	/**
+	 * The age today, worked out from the birth date; {@code null} if it cannot be.
+	 */
+	public PetAge getAge() {
+		return PetAge.of(this.birthDate, LocalDate.now());
+	}
+
 	public PetType getType() {
 		return this.type;
 	}
