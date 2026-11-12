@@ -157,17 +157,14 @@ class PetBirthDateCharacterizationTests {
 	// ---- entering and checking: update ----
 
 	@Test
-	void updateAcceptsFutureBirthDateAndSavesIt() throws Exception {
-		// SUSPECT: only the create path rejects a future birth date; edit accepts it.
-		LocalDate future = LocalDate.now().plusYears(1);
+	void updateRejectsFutureBirthDateAndKeepsOldDate() throws Exception {
 		mockMvc
 			.perform(post("/owners/{id}/pets/{petId}/edit", OWNER_ID, PET_ID).param("name", "petty")
 				.param("type", "hamster")
-				.param("birthDate", future.toString()))
-			.andExpect(status().is3xxRedirection())
-			.andExpect(view().name("redirect:/owners/{ownerId}"));
-		assertThat(owner.getPet(PET_ID).getBirthDate()).isEqualTo(future);
-		verify(owners).saveAndFlush(owner);
+				.param("birthDate", LocalDate.now().plusYears(1).toString()))
+			.andExpect(status().isOk())
+			.andExpect(model().attributeHasFieldErrorCode("pet", "birthDate", "typeMismatch.birthDate"));
+		verify(owners, never()).saveAndFlush(any());
 	}
 
 	@Test

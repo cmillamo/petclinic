@@ -242,6 +242,16 @@ class PetControllerTests {
 		}
 
 		@Test
+		void rejectsBirthDateAfterToday() throws Exception {
+			mockMvc
+				.perform(post("/owners/{ownerId}/pets/{petId}/edit", TEST_OWNER_ID, TEST_PET_ID).param("name", "Betty")
+					.param("birthDate", LocalDate.now().plusDays(1).toString()))
+				.andExpect(model().attributeHasFieldErrorCode("pet", "birthDate", "typeMismatch.birthDate"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("pets/createOrUpdatePetForm"));
+		}
+
+		@Test
 		void processUpdateFormWithBlankName() throws Exception {
 			mockMvc
 				.perform(post("/owners/{ownerId}/pets/{petId}/edit", TEST_OWNER_ID, TEST_PET_ID).param("name", "  ")
