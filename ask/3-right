@@ -1,0 +1,1 @@
+We are about to work on PC-303: show each pet's age on the owner's page, worked out from the pet's birth date. Before any code changes, write tests that pin how the application handles a pet's birth date today: everywhere a birth date is entered, checked, saved or shown.

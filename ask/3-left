@@ -1,0 +1,1 @@
+We are about to work on PC-303: show each pet's age on the owner's page, worked out from the pet's birth date. Before any code changes, write tests that pin the current behavior of the code this will touch.

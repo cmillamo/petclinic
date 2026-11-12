@@ -1,0 +1,1 @@
+The pins show that editing a pet accepts a birth date after today, while adding one rejects it. That is a bug: a birth date after today is invalid on both forms. Prove it with a failing test, then fix it the quick way: copy the check from the add handler into the edit handler.
