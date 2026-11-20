@@ -66,6 +66,13 @@ public class Pet extends NamedEntity {
 		return this.birthDate;
 	}
 
+	/**
+	 * @return the age on {@code today}, or {@code null} if it cannot be told
+	 */
+	public PetAge ageOn(LocalDate today) {
+		return PetAge.between(this.birthDate, today);
+	}
+
 	public PetType getType() {
 		return this.type;
 	}
